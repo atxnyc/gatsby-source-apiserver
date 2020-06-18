@@ -30,7 +30,7 @@ exports.sourceNodes = async ({
   schemaType,
   entitiesArray = [{}],
   params = {},
-  verboseOutput = false,
+  verboseOutput = true,
   enableDevRefresh = false,
   refreshId = 'id',
   allowCache = false,
