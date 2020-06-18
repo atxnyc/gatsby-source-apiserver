@@ -5,6 +5,8 @@ const httpExceptionHandler = require(`./http-exception-handler`)
 const chalk = require('chalk')
 const log = console.log
 
+
+
 async function doFetch(method, url, headers, data, params, auth, reporter, routeData, calculateNextPage) {
   let completeResult = []
   let haveMorePages = false
@@ -32,6 +34,7 @@ async function doFetch(method, url, headers, data, params, auth, reporter, route
     if (routeData) {
       completeResult.push(routeData)
       if (calculateNextPage) {
+        console.log("nexzt data")
         try {
           const nextPage = calculateNextPage(curUrl, response, context);
           if (nextPage.hasNext) {
@@ -80,12 +83,13 @@ async function fetch({
     reporter.panic('payloadKey and calculateNextPage currently dont work together yet', new Error('payloadKey and calculateNextPage currently dont work together yet'))
   }
   if (!routeData) {
-
+  console.log("route data")
     try {
       routeData = await doFetch(method, url, headers, data, params, auth, reporter, routeData, calculateNextPage);
       if (shouldCache) {
         await cache.set(url, routeData)
         await cache.set('cacheTimestamp', new Date().toISOString())
+        console.log("route data")
       }
     } catch (e) {
       console.log('\nGatsby Source Api Server response error:\n', e.response.data && e.response.data.errors)
